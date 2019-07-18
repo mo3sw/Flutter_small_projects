@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'Question.dart';
+import 'QiuzBrain.dart';
+
+QuizBrain quizBrain = new QuizBrain();
+
 
 void main() => runApp(Quizzler());
 
@@ -35,14 +39,6 @@ class _QuizPageState extends State<QuizPage> {
 //  List<bool> answers = [false, true, true];
   int i = 0;
 
-  List<Question> questions = [
-    Question(question: 'You can lead a cow down stairs but not up stairs.', answer:false),
-    Question(question: 'Approximately one quarter of human bones are in the feet.', answer:true),
-    Question(question: 'A slug\'s blood is green.', answer:true)
-  ];
-
-
-
   void addFalseMark() {
     setState(() {
       scoreKeeper.add(
@@ -75,7 +71,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[i].questionText,
+                quizBrain.questions[i].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -101,12 +97,12 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked true.
                 setState(() {
-                  if (true == questions[i].questionAnswer) {
+                  if (true == quizBrain.questions[i].questionAnswer) {
                     addCorrectMark();
                   } else {
                     addFalseMark();
                   }
-                  if (i + 1 == questions.length) {
+                  if (i + 1 == quizBrain.questions.length) {
                     i = 0;
                   } else {
                     i++;
@@ -129,12 +125,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (false == questions[i].questionAnswer) {
+                if (false == quizBrain.questions[i].questionAnswer) {
                   addCorrectMark();
                 } else {
                   addFalseMark();
                 }
-                if (i + 1 == questions.length) {
+                if (i + 1 == quizBrain.questions.length) {
                   i = 0;
                 } else {
                   i++;
