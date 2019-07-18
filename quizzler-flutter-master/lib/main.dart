@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -25,8 +26,42 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Widget> scoreKeeper = [];
+//  List<String> questions = [
+//    'You can lead a cow down stairs but not up stairs.',
+//    'Approximately one quarter of human bones are in the feet.',
+//    'A slug\'s blood is green.'
+//  ];
+//  List<bool> answers = [false, true, true];
+  int i = 0;
+
+  List<Question> questions = [
+    Question(question: 'You can lead a cow down stairs but not up stairs.', answer:false),
+    Question(question: 'Approximately one quarter of human bones are in the feet.', answer:true),
+    Question(question: 'A slug\'s blood is green.', answer:true)
+  ];
 
 
+
+  void addFalseMark() {
+    setState(() {
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    });
+  }
+
+  void addCorrectMark() {
+    scoreKeeper.add(
+      Icon(
+        Icons.check,
+        color: Colors.green,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[i].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -65,6 +100,18 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                setState(() {
+                  if (true == questions[i].questionAnswer) {
+                    addCorrectMark();
+                  } else {
+                    addFalseMark();
+                  }
+                  if (i + 1 == questions.length) {
+                    i = 0;
+                  } else {
+                    i++;
+                  }
+                });
               },
             ),
           ),
@@ -82,23 +129,23 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                if (false == questions[i].questionAnswer) {
+                  addCorrectMark();
+                } else {
+                  addFalseMark();
+                }
+                if (i + 1 == questions.length) {
+                  i = 0;
+                } else {
+                  i++;
+                }
               },
             ),
           ),
         ),
         //TODO: Add a Row here as your score keeper
         Row(
-          children: <Widget>[
-            Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-            Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-          ],
+          children: scoreKeeper,
         ),
       ],
     );
