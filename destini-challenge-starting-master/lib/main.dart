@@ -54,7 +54,9 @@ class _StoryPageState extends State<StoryPage> {
                   onPressed: () {
                     //Choice 1 made by user.
                     //TODO: Step 18 - Call the nextStory() method from storyBrain and pass the number 1 as the choice made by the user.
-                    sb.nextStory(choiceNumber: 1);
+                    setState(() {
+                      sb.nextStory(choiceNumber: 1);
+                    });
                   },
                   color: Colors.red,
                   child: Text(
@@ -77,7 +79,9 @@ class _StoryPageState extends State<StoryPage> {
                   onPressed: () {
                     //Choice 2 made by user.
                     //TODO: Step 19 - Call the nextStory() method from storyBrain and pass the number 2 as the choice made by the user.
-                    sb.nextStory(choiceNumber: 2);
+                    setState(() {
+                      sb.nextStory(choiceNumber: 2);
+                    });
                   },
                   color: Colors.blue,
                   child: Text(
