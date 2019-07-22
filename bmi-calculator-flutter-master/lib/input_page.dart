@@ -4,7 +4,6 @@ import 'gender_widget.dart';
 import 'constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 enum Gender {
   Male,
   Female,
@@ -20,6 +19,8 @@ class _InputPageState extends State<InputPage> {
 //  Color femaleCardColor = inactiveCardColor;
   Gender selectedGender;
   int height = 180;
+  int weight = 90;
+  int age = 25;
 
 //  void updateColor(Gender gender){
 //    if(gender == Gender.Male){
@@ -124,7 +125,7 @@ class _InputPageState extends State<InputPage> {
                             max: 220.0,
                             value: height.toDouble(),
 //                            activeColor: kBottomContainerColor,
-                            onChanged: (double height){
+                            onChanged: (double height) {
                               setState(() {
                                 this.height = height.round();
                               });
@@ -145,11 +146,102 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: new ReusableCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              weight.toString(),
+                              style: kHeightLabelTextStyle,
+                            ),
+                            Text(
+                              'KG',
+                              style: kCMLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+//                            FloatingActionButton(
+//                              child: Icon(Icons.minimize),
+//                              backgroundColor: Color(0xFF4C4F5E),
+//                            ),
+                            // My own button built it myself
+                            RoundIconButton(
+                              onPress: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                              icon: FontAwesomeIcons.minus,
+                            ),
+                            RoundIconButton(
+                              onPress: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus,
+                            ),
+//                            FloatingActionButton(
+//                              child: Icon(
+//                                FontAwesomeIcons.plus,
+//                                color: Colors.white,
+//                              ),
+//                              backgroundColor: Color(0xFF4C4F5E),
+//                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: new ReusableCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kHeightLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RoundIconButton(
+                              onPress: (){
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                              icon: FontAwesomeIcons.minus,
+                            ),
+                            RoundIconButton(
+                              onPress: (){
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -163,6 +255,29 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  final IconData icon;
+  final Function onPress;
+
+  RoundIconButton({this.icon, @required this.onPress});
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(this.icon),
+      shape: CircleBorder(),
+      onPressed: this.onPress,
+      fillColor: Color(0xFF4C4F5E),
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      elevation: 6.0,
+      disabledElevation: 6.0,
     );
   }
 }
